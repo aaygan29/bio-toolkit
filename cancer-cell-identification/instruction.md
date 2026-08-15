@@ -1,38 +1,51 @@
-# Identify the Cancerous Cell Population
+# Identify the Malignant Cell Population (Unlabeled Single-Cell Data)
 
 You are given single-cell gene expression data from a tissue biopsy
-containing a mix of immune cells, stromal cells, and epithelial cells, one
-population of which is malignant. The cells have already been clustered;
-your job is to use marker gene expression to figure out which cluster is
-the cancerous one.
+containing several unlabeled cell populations, exactly one of which is
+malignant. There is **no cluster or cell-type column** in the data --
+you must cluster the cells yourself, determine how many populations are
+present, annotate each cluster from marker genes, and identify which one
+is cancerous.
 
 You are given, at `/workdir`:
 
-- `expression_matrix.csv` — 60 cells (`cell_id`, `cluster_id`, plus
-  expression values for 10 marker genes). Cluster IDs (`cluster_1`
-  through `cluster_4`) are arbitrary and carry no biological meaning on
-  their own.
-- `marker_reference.json` — canonical marker genes for immune, fibroblast,
-  and epithelial cell types, plus the malignancy rule: a cluster is
-  malignant epithelium if it is epithelial-marker positive (EPCAM, KRT8)
-  **and** shows a high proliferation-to-tumor-suppressor ratio
-  (MKI67 relative to TP53).
-- `classify_cells.py` — computes per-cluster mean marker expression and
-  applies the malignancy rule to report the malignant cluster.
+- `expression_matrix.csv` — 800 cells x 20 marker genes, no labels
+- `marker_reference.json` — canonical marker gene groups (immune,
+  fibroblast, epithelial, proliferation, tumor-suppressor,
+  endothelial) plus an explicit warning: **epithelial-marker
+  positivity alone does not mean malignant**. A biopsy can contain a
+  normal, non-cancerous epithelial population that also expresses
+  epithelial markers highly. Malignancy additionally requires
+  elevated proliferation markers together with reduced
+  tumor-suppressor marker expression.
+- `cluster_analysis.py` — standardizes the data, selects the number of
+  clusters via silhouette score (no k is given to you), fits KMeans,
+  computes per-cluster marker means, applies the malignancy rule
+  above, and runs a 500-resample bootstrap consensus clustering check
+  for stability.
 
 ## Requirements
 
-1. Determine which `cluster_id` in `expression_matrix.csv` corresponds to
-   the malignant population. You may run `classify_cells.py` as-is, modify
-   it, or do your own analysis of the two input files.
-2. Write the malignant cluster's ID to `/workdir/answer.txt` as the only
-   line in the file (e.g. `cluster_4`), exactly as it appears in
-   `expression_matrix.csv`.
+1. Cluster the 800 cells and determine the correct number of
+   populations yourself (do not assume a fixed k).
+2. Annotate clusters using the marker gene groups in
+   `marker_reference.json`, and correctly distinguish the malignant
+   population from any benign population that also happens to be
+   epithelial-marker positive.
+3. Write every malignant cell's `cell_id` to `/workdir/malignant_cells.txt`,
+   one per line.
+4. Write `/workdir/clustering_report.json` documenting your analysis:
+   chosen `k`, `silhouette_score`, per-cluster marker means and
+   malignancy calls, and the bootstrap consensus `stability` result
+   (`n_bootstrap`, `mean_adjusted_rand_index`, `std_adjusted_rand_index`)
+   as evidence the clustering and stability check were actually run.
 
 ## Expected Result
 
-- `/workdir/answer.txt` exists and contains exactly one `cluster_id` from
-  `expression_matrix.csv`
-- That cluster is the one that is epithelial-marker positive with the
-  highest MKI67/TP53 ratio, per the malignancy rule in
-  `marker_reference.json`
+- `/workdir/malignant_cells.txt` lists the malignant cells with high
+  precision and recall against the true (hidden) malignant population
+  — flagging all epithelial cells, including the benign population,
+  will score poorly
+- `/workdir/clustering_report.json` exists, is internally consistent
+  with `malignant_cells.txt`, and includes a real bootstrap stability
+  result (>= 200 resamples)

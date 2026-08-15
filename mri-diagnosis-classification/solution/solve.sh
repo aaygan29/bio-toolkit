@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex
 
-diagnosis=$(python3 /workdir/classify.py /workdir/patient_scan.json /workdir/reference_profiles.json \
-  | tail -n 1 | sed 's/^Closest match: //')
+output=$(python3 /workdir/classify.py /workdir/reference_cohort.csv /workdir/patient_scan.json)
+diagnosis=$(echo "$output" | grep "^Diagnosis by variance-weighted distance:" | sed 's/^Diagnosis by variance-weighted distance: //')
 
 echo -n "$diagnosis" > /workdir/answer.txt
