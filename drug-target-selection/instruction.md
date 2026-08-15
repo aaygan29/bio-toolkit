@@ -1,34 +1,56 @@
-# Select the Best Drug Candidate for a Binding Target
+# Design the Best-Fitting Molecule for a Binding Pocket
 
-A patient presents with elevated intraocular pressure caused by excess aqueous
-humor production, the hallmark symptom of glaucoma. The relevant druggable
-target is the enzyme **carbonic anhydrase II**, and you have been handed a
-shortlist of existing drugs to evaluate as candidates for lessening this
-symptom.
+You are doing early-stage computational drug design against an
+uncharacterized binding pocket, **Target Pocket TP-19**. No disease,
+protein family, or known-drug hint is provided or relevant — this is a
+pure structure/property optimization problem. Do not guess based on
+what a "similar-sounding" real drug might treat; there is no such
+mapping here, and any resemblance to a real compound class in the
+fragment library is coincidental to chemistry, not a hint.
 
 You are given, at `/workdir`:
 
-- `candidates.csv` — six candidate drugs (`drug_name`, `smiles`)
-- `target_profile.json` — a descriptor-based approximation of the ideal
-  physicochemical profile for a molecule that fits the carbonic anhydrase II
-  binding pocket, plus per-descriptor weights
-- `dock.py` — a scoring script that computes RDKit molecular descriptors
-  (molecular weight, LogP, TPSA, H-bond donors/acceptors, rotatable bonds)
-  for each candidate and returns a weighted distance to the ideal profile.
-  **Lower score = better fit.**
+- `fragments.json` — a fragment library:
+  - 6 **scaffolds**, each a ring core with two labeled attachment
+    points, `[*:1]` and `[*:2]`
+  - 12 **group_a** fragments, each attaching at position 1
+  - 12 **group_b** fragments, each attaching at position 2
+  - A design is a `(scaffold, group_a, group_b)` triple. There are
+    6 x 12 x 12 = **864 possible designs**.
+- `target_pocket.json` — the ideal descriptor profile for this pocket
+  (molecular weight, LogP, TPSA, H-bond donors/acceptors, rotatable
+  bonds) plus per-descriptor weights, used to score how well an
+  assembled molecule fits.
+- `assemble.py` — joins one design's three fragments into a molecule
+  (via RDKit's `molzip`) and reports its SMILES, its 2D-descriptor fit
+  score (lower is better), and a minimized-energy value from a real 3D
+  conformer (MMFF94, fixed random seed — deterministic).
+
+`assemble.py` only evaluates **one design at a time**. Finding the best
+one is a search problem across all 864 combinations — you need to drive
+that search yourself (e.g. write a script that loops over every
+scaffold/group_a/group_b combination, scores each, and tracks the best).
 
 ## Requirements
 
-1. Determine which candidate in `candidates.csv` best fits the target binding
-   profile. You may run `dock.py` as-is, modify it, or write your own
-   equivalent analysis — the scoring logic is documented in the script.
-2. Write the winning drug's name **exactly as it appears in `candidates.csv`**
-   to `/workdir/answer.txt`, as the only line in the file (no extra
-   whitespace, no explanation).
+1. Search the full 864-design space and find the design with the lowest
+   2D-descriptor fit score.
+2. Write your final design to `/workdir/answer.json`:
+   ```json
+   {"scaffold": "<scaffold_id>", "group_a": "<group_a_id>", "group_b": "<group_b_id>"}
+   ```
+3. As proof you evaluated real candidates rather than guessing, write
+   `/workdir/conformer_energies.tsv` with **one row per design you
+   scored** (tab-separated: `scaffold_id<TAB>group_a_id<TAB>group_b_id<TAB>minimized_energy`).
+   This must cover the full 864-design space with real minimized MMFF94
+   energies (blank energy field is acceptable for the rare design where
+   3D embedding fails).
 
 ## Expected Result
 
-- `/workdir/answer.txt` exists and contains exactly one drug name from
-  `candidates.csv`
-- That drug name is the one with the lowest weighted descriptor distance to
-  `target_profile.json`, as computed by `dock.py`
+- `/workdir/answer.json` exists, references valid fragment IDs from
+  `fragments.json`, and its assembled molecule has the lowest 2D
+  descriptor fit score of all 864 possible designs
+- `/workdir/conformer_energies.tsv` has one row per design (864 data
+  rows) with minimized energies that are independently reproducible
+  (same seed, same force field)

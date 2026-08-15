@@ -6,4 +6,4 @@ RUN pip install --no-cache-dir rdkit==2024.3.5 pandas==2.2.2
 
 WORKDIR /workdir
 
-COPY candidates.csv target_profile.json dock.py /workdir/
+COPY fragments.json target_pocket.json assemble.py /workdir/

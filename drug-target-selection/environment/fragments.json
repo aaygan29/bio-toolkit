@@ -1,0 +1,39 @@
+{
+  "note": "Building-block fragments for combinatorial molecule assembly. Each scaffold has two labeled attachment points ([*:1] and [*:2]). Each group_a fragment attaches at position 1, each group_b fragment attaches at position 2. A design is a (scaffold, group_a, group_b) triple, assembled by assemble.py.",
+  "scaffolds": {
+    "SC01_benzene":      "c1ccc([*:1])c([*:2])c1",
+    "SC02_thiadiazole":  "[*:1]c1nnc(s1)[*:2]",
+    "SC03_thiophene":    "c1cc([*:1])c(s1)[*:2]",
+    "SC04_pyridine":     "c1ccnc([*:1])c1[*:2]",
+    "SC05_oxazole":      "c1oc([*:1])nc1[*:2]",
+    "SC06_pyrazole":     "c1c([*:2])c([*:1])n(C)n1"
+  },
+  "group_a": {
+    "A01_sulfonamide":          "[*:1]S(N)(=O)=O",
+    "A02_Nacetylsulfonamide":   "[*:1]S(=O)(=O)NC(C)=O",
+    "A03_thiol":                "[*:1]S",
+    "A04_hydroxamate":          "[*:1]C(=O)NO",
+    "A05_carboxylate":          "[*:1]C(=O)O",
+    "A06_boronic_acid":         "[*:1]B(O)O",
+    "A07_phosphonate":          "[*:1]P(=O)(O)O",
+    "A08_sulfonylmethyl":       "[*:1]CS(N)(=O)=O",
+    "A09_Nmethylsulfonamide":   "[*:1]S(=O)(=O)NC",
+    "A10_tetrazole":            "[*:1]c1nnn[nH]1",
+    "A11_amidine":              "[*:1]C(=N)N",
+    "A12_guanidine":            "[*:1]NC(=N)N"
+  },
+  "group_b": {
+    "B01_methyl":         "[*:2]C",
+    "B02_ethyl":          "[*:2]CC",
+    "B03_propyl":         "[*:2]CCC",
+    "B04_butyl":          "[*:2]CCCC",
+    "B05_methoxy":        "[*:2]OC",
+    "B06_hydroxyl":       "[*:2]O",
+    "B07_amino":          "[*:2]N",
+    "B08_dimethylamino":  "[*:2]N(C)C",
+    "B09_chloro":         "[*:2]Cl",
+    "B10_fluoro":         "[*:2]F",
+    "B11_acetamido":      "[*:2]NC(C)=O",
+    "B12_carboxyl":       "[*:2]C(=O)O"
+  }
+}
