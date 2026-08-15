@@ -1,0 +1,20 @@
+{
+  "target": "carbonic anhydrase II binding pocket (glaucoma / intraocular pressure)",
+  "note": "Ideal descriptor profile approximating the sulfonamide-class pharmacophore known to fit this pocket (zinc-binding sulfonamide group, moderate polarity, compact size).",
+  "ideal": {
+    "MolWt": 220.0,
+    "LogP": -0.3,
+    "TPSA": 115.0,
+    "HBD": 2,
+    "HBA": 6,
+    "RotBonds": 2
+  },
+  "weights": {
+    "MolWt": 0.01,
+    "LogP": 1.2,
+    "TPSA": 0.03,
+    "HBD": 0.6,
+    "HBA": 0.5,
+    "RotBonds": 0.4
+  }
+}

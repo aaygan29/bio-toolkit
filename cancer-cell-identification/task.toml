@@ -1,0 +1,21 @@
+version = "1.0"
+reward = "binary"
+
+[metadata]
+author_name = "Aayush Gandhi"
+author_email = "aaygan29@gmail.com"
+difficulty = "medium"
+category = "computational-biology"
+tags = ["single-cell", "cell-typing", "cancer-biology", "marker-genes"]
+
+[verifier]
+timeout_sec = 300.0
+
+[agent]
+timeout_sec = 900.0
+
+[environment]
+build_timeout_sec = 300.0
+cpus = 1
+memory_mb = 2048
+storage_mb = 2048

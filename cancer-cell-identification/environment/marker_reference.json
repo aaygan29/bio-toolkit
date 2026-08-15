@@ -1,0 +1,12 @@
+{
+  "note": "Canonical marker genes for interpreting mean cluster expression. Cluster identities are NOT given directly and must be inferred from these markers.",
+  "immune_markers": ["PTPRC", "CD3D", "CD19"],
+  "t_cell_markers": ["CD3D"],
+  "b_cell_markers": ["CD19"],
+  "fibroblast_markers": ["COL1A1", "VIM"],
+  "epithelial_markers": ["EPCAM", "KRT8"],
+  "proliferation_marker": "MKI67",
+  "tumor_suppressor": "TP53",
+  "endothelial_marker": "PECAM1",
+  "malignancy_rule": "A cluster is malignant epithelium if it is epithelial-marker positive (mean EPCAM and KRT8 both well above baseline) AND shows a high proliferation-to-tumor-suppressor ratio (elevated MKI67 relative to TP53), consistent with uncontrolled proliferation and loss of tumor-suppressor function."
+}

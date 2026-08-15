@@ -1,0 +1,13 @@
+{
+  "patient_id": "PT-0417",
+  "z_scores": {
+    "hippocampus": -0.63,
+    "amygdala": -0.25,
+    "prefrontal_cortex": -0.72,
+    "lateral_ventricles": 0.85,
+    "thalamus": -0.38,
+    "temporal_lobe": -0.55,
+    "anterior_cingulate": -0.42,
+    "cerebellum": -0.08
+  }
+}

@@ -1,0 +1,21 @@
+version = "1.0"
+reward = "binary"
+
+[metadata]
+author_name = "Aayush Gandhi"
+author_email = "aaygan29@gmail.com"
+difficulty = "medium"
+category = "computational-chemistry"
+tags = ["drug-discovery", "cheminformatics", "rdkit", "target-binding"]
+
+[verifier]
+timeout_sec = 300.0
+
+[agent]
+timeout_sec = 900.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 4096
