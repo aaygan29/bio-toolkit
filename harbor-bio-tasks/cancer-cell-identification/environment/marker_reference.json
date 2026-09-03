@@ -1,0 +1,12 @@
+{
+  "note": "Canonical marker genes for interpreting cluster identity. Cell-type labels are NOT given -- expression_matrix.csv has no ground-truth column. You must cluster the cells yourself and interpret each cluster's identity from these marker groups.",
+  "immune_markers": ["PTPRC", "CD3D", "CD3E", "CD19", "MS4A1"],
+  "t_cell_markers": ["CD3D", "CD3E"],
+  "b_cell_markers": ["CD19", "MS4A1"],
+  "fibroblast_markers": ["COL1A1", "COL3A1", "VIM", "PDGFRB"],
+  "epithelial_markers": ["EPCAM", "KRT8", "KRT18", "CDH1"],
+  "proliferation_markers": ["MKI67", "TOP2A", "PCNA"],
+  "tumor_suppressor_markers": ["TP53", "CDKN1A"],
+  "endothelial_markers": ["PECAM1", "VWF"],
+  "warning": "Epithelial-marker positivity ALONE does not mean malignant -- a normal, non-cancerous epithelial population can also express EPCAM/KRT8/KRT18/CDH1 highly. Malignancy additionally requires elevated proliferation markers together with reduced tumor-suppressor marker expression, consistent with loss of cell-cycle checkpoint control. Do not flag a cluster as malignant on epithelial markers alone -- check proliferation and tumor-suppressor markers too."
+}
