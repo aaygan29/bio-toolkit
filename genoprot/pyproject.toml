@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["genoprotein*"]
+
+[project]
+name = "genoprotein"
+version = "0.1.0"
+description = "Reconstruct, analyze, and manipulate proteins from partial genomic data with gene splicing operations"
+readme = "README.md"
+authors = [{ name = "GenoProtein" }]
+license = { text = "Proprietary" }
+requires-python = ">=3.10"
+keywords = ["bioinformatics", "genomics", "proteomics", "gene-splicing", "protein-engineering"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+dependencies = [
+    "biopython>=1.83",
+    "requests>=2.31",
+    "click>=8.0",
+]
+
+[project.scripts]
+genoprotein = "genoprotein.cli:cli"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff",
+]
+web = [
+    "streamlit>=1.28",
+    "plotly>=5.17",
+    "pandas>=2.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
