@@ -1,4 +1,4 @@
-# Lab Notebook: Bioplausibility & Functional-Viability Scoring
+# Aayush — Lab Notebook: Bioplausibility & Functional-Viability Scoring
 
 Project: PRISM (biologically-grounded adversarial robustness of protein foundation
 models). This notebook records, in order, everything built and tested, with the
