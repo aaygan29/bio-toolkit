@@ -12,6 +12,7 @@ Loads ESM2 once, scores each assay's WT with a single wt-marginal forward pass.
 Long proteins (POLG 2185aa) fall back to a smaller model to fit CPU memory.
 """
 from __future__ import annotations
+import os
 import csv, json, math, sys
 import numpy as np
 import torch, esm
@@ -21,7 +22,7 @@ from sklearn.metrics import roc_auc_score
 from fvs import load_af2_ca, f_site
 from bps_p import bps_p
 
-PG = "/Users/aayushgandhi/Downloads/ProteinGym"
+PG = os.path.expanduser(os.environ.get("PROTEINGYM_DIR", "~/Downloads/ProteinGym"))
 SUB = f"{PG}/DMS_ProteinGym_substitutions"
 STR = f"{PG}/ProteinGym_AF2_structures"
 SITES = json.load(open("data/active_sites.json"))
