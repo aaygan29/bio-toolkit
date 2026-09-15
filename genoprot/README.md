@@ -20,7 +20,7 @@ print(reconstructor.protein_sequence)
 Install from source (not published to a package index):
 
 ```bash
-git clone https://github.com/aaygan29/genoprot.git
+git clone <this repository URL>
 cd genoprot
 pip install -e ".[dev]"
 ```
