@@ -16,6 +16,7 @@ Built on three foundations:
 | `SPEC.md`     | Full math: equations, validation protocol, integration tiers |
 | `bps_p.py`    | The scorer — runnable today, no models required |
 | `validate.py` | Validation harness (construct/internal/predictive validity + calibration) |
+| `geometric_sae_discovery.py` | FDR-controlled discovery of geometric structure in protein-LM SAE features (after Setlur, Mihajlovic & Lee 2026, NeurIPS 2026); interpretability complement to the black-box plausibility AUC. Pure numpy/scipy, self-tests via `python geometric_sae_discovery.py` |
 
 ## Run it
 ```bash
