@@ -8,4 +8,4 @@ Consolidated biology tooling. Each subdirectory is an originally standalone proj
 | [`bioplausibility_scoring/`](./bioplausibility_scoring) | Biological plausibility scorer for protein variants — evolutionary, structural, and functional-retention signals. |
 | [`harbor-bio-tasks/`](./harbor-bio-tasks) | Biomedical capability tasks (cancer cell ID, drug-target selection, MRI diagnosis). |
 
-Original repositories are archived (read-only) and point here.
+The original standalone repositories have been removed; their full history is preserved here via git subtree.
